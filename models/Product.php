@@ -28,6 +28,26 @@ class Product extends BaseModel {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
     }
+
+    public function top4Lastest() {
+        $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 4";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function top4View() {
+        $sql = "SELECT * FROM products ORDER BY view_count DESC LIMIT 4";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function updateViewCount($view_count, $id) {
+        $sql = "UPDATE `products` SET `view_count` = $view_count WHERE `products`.`id` = $id;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+    }
 }
 
 ?>
